@@ -3,7 +3,7 @@
 \usepackage{hyperref}
 \usepackage{import}
 \usepackage{listings}
-\usepackage{xcolor}
+\usepackage[dvipsnames]{xcolor}
 \usepackage{hyperref}
 \usepackage{graphicx}
 
@@ -17,15 +17,14 @@
 \author{پرهام الوانی}
 \date{نیم سال اول ۱۳۹۹-۱۴۰۰}
 
-
-%---------------------------------------------------------------------------------
-% Colors
-%---------------------------------------------------------------------------------
-\definecolor{orange}{RGB}{255, 165, 0}
-\definecolor{green}{RGB}{124, 252, 0}
-\definecolor{cyna}{RGB}{0, 255, 255}
-
-\newcommand\Extra{\textcolor{orange}{امتیازی.}}
+\newcommand\Extra{\textcolor{Orange}{امتیازی.}}
+\newenvironment{extra}{
+  \begin{quote}
+  \color{Orange}
+  \textbf{امتیازی.}
+}{
+  \end{quote}
+}
 
 \begin{document}
 
