@@ -17,29 +17,36 @@
 دقت کنید تیم سخت‌افزار طراحی را به صورت انجام داده است که در هر بار ارسال می‌تواند همه اطلاعات را ارسال کند.
 اطلاعات سنسورها به شرح زیر است:
 
-\begin{latin}\begin{lstlisting}
-  Temperature: int
-  Humidity: double
-  Light: int
-  ID: string
-\end{lstlisting}\end{latin}
+\begin{latin}
+\begin{lstlisting}
+  Temperature: int / between 10 degree to 100 degree / required
+  Humidity: double / between 0% to 100% / required
+  Light: int / between 0 to 1024 / required
+  ID: string / required
+\end{lstlisting}
+\end{latin}
 
 از آنجایی که طراحی سخت‌افزار کار دشواری است پروتکل شما می‌بایست همه اطلاعات را در هر پیام ارسال کند.
 
 عملگرها با توجه به کاری که انجام می‌دهند متفاوت هستند بنابراین اطلاعات لازم برای آن‌ها متفاوت خواهد بود.
 عملگر چراغ‌ها و قطع-وصل شوفاژ به اطلاعات زیر نیاز دارد:
 
-\begin{latin}\begin{lstlisting}
-  Light: int
-  ID: string
-\end{lstlisting}\end{latin}
+\begin{latin}
+\begin{lstlisting}
+  Status: boolean / required
+  ID: string / required
+\end{lstlisting}
+\end{latin}
 
 عملگر پرده به اطلاعات زیر نیاز دارد:
 
-\begin{latin}\begin{lstlisting}
-  Light: int
-  ID: string
-\end{lstlisting}\end{latin}
+\begin{latin}
+\begin{lstlisting}
+  Height: int / between 0cm to 100cm / required
+  ID: string / required
+\end{lstlisting}
+\end{latin}
 
+بعد از طراحی پروتکل یک \lr{JSON Schema} نیز برای آن طراحی کنید.
 
 \end{document}
