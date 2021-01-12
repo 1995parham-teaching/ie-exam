@@ -1,0 +1,23 @@
+\documentclass[../main.tex]{subfiles}
+
+\begin{document}
+
+\section{از \lr{URL} به تقاضا}
+
+\paragraph{}
+فرض کنید مرورگر شما می‌خواهد به URL زیر تقاضا ارسال کند:
+
+\begin{latin}
+\textit{https://httpbin.org/get?hello=world#H}
+\end{latin}
+
+برای اینکار از تقاضای زیر استفاده می‌کند. مواردی که با <> مشخص شده‌اند را مقداردهی کنید.
+
+\begin{latin}
+\begin{minted}[bgcolor=LightGray]{http}
+GET <path> HTTP/1.1
+Host: <host>
+\end{minted}
+\end{latin}
+
+\end{document}
