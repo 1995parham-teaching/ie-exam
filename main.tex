@@ -3,6 +3,7 @@
 \usepackage{hyperref}
 \usepackage{import}
 \usepackage{listings}
+\usepackage{minted}
 \usepackage[dvipsnames]{xcolor}
 \usepackage{hyperref}
 \usepackage{graphicx}
@@ -10,6 +11,8 @@
 \usepackage{xepersian}
 \settextfont{Vazir}
 \setlatintextfont{Roboto}
+
+\colorlet{LightGray}{Gray!30!}
 
 \usepackage{subfiles}
 
@@ -30,8 +33,13 @@
 
     \maketitle
 
+    \subfile{introduction/main}
     \subfile{json-1/main}
     \subfile{fetch/main}
     \subfile{validation/main}
+    \subfile{css-extend/main}
+    \subfile{cookie/main}
+    % \subfile{js-scope/main}
+    % \subfile{js-event-1/main}
 
 \end{document}
