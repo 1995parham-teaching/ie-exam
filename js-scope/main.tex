@@ -1,0 +1,27 @@
+\documentclass[../main.tex]{subfiles}
+
+\begin{document}
+
+\section{محدوده‌ها}
+
+\paragraph{}
+مهدی به تازگی با بحث محدوده‌ها\LTRfootnote{scope}
+در درس برنامه‌نویسی پیشرفته آشنا شده است.
+مهدی معتقد است که بین جاوا و جاوا اسکریپت تفاوت زیادی وجود ندارد زیرا نام‌های آن‌ها بسیار مشابه است.
+او با دیدن قطعه کد زیر دچار مشکلات روحی شده است.
+به او توضیح دهید که چرا خروجی کد با آنچه در جاوا دیده است متفاوت است
+و کد را نیز به گونه‌ای تغییر دهید تا مقصود مهدی را برساند.
+
+\begin{latin}
+\begin{minted}[bgcolor=LightGray]{js}
+function hello() {
+  var i = 10
+  if (i == 10) {
+     var i = 20
+  }
+  console.log(i)
+}
+\end{minted}
+\end{latin}
+
+\end{document}

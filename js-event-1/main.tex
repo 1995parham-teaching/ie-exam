@@ -1,0 +1,27 @@
+\documentclass[../main.tex]{subfiles}
+
+\begin{document}
+
+\section{رویدادها}
+
+\paragraph{}
+سپهر یک برنامه نویس فرانت است، از او در یک مصاحبه خواسته شده است
+که تابع \lr{setBgColor}
+را که تعریف آن در ادامه آمده است با استفاده از \textbf{جاوا اسکریپت}
+و \textbf{بدون}
+استفاده از \lr{HTML}
+به عنوان یک هندلر روی یک دکمه ثبت کند. آیا این امر ممکن است؟
+دقت داشته باشید که این دکمه حتما این تابع را با پارامتر \lr{\textit{orange}}
+فراخوانی می‌کند.
+شما مجاز به نوشتن هر میزان کد جاوا اسکریپت که صلاح می‌دانید هستید.
+
+\begin{latin}
+\begin{minted}[bgcolor=LightGray]{js}
+function setBgColor(color) {
+  document.getElementById('change-my-color')
+                    .style.backgroundColor = color;
+}
+\end{minted}
+\end{latin}
+
+\end{document}
