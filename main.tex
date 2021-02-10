@@ -8,6 +8,20 @@
 \usepackage{hyperref}
 \usepackage{graphicx}
 
+% \usepackage[disable]{todonotes} % answers not showed
+\usepackage[draft]{todonotes}   % answers showed
+
+% based on
+\newcommand\answer[2][]{\todo[inline, caption={2do}, #1]{
+    \begin{persian}
+    \begin{minipage}{\textwidth-4pt}
+      پاسخ.
+      #2
+    \end{minipage}
+    \end{persian}
+  }
+}
+
 \usepackage{xepersian}
 \settextfont{Vazir}
 \setlatintextfont{Roboto}
