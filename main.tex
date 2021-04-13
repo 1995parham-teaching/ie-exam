@@ -22,7 +22,7 @@
   }
 }
 
-\usepackage{xepersian}
+\usepackage[localise]{xepersian}
 \settextfont{Vazir}
 \setlatintextfont{Roboto}
 
@@ -42,11 +42,16 @@
 }{
   \end{quote}
 }
+\eqenvironment{امتیازی}{extra}
 
 \begin{document}
 
     \maketitle
 
-    \subfile{}
+    \subfile{genderize/main}
+    \vspace*{\fill}
+    \begin{center}
+این سند برپایه بسته \متن‌لاتین{\زی‌پرشین} گونه \متن‌لاتین{\گونه‌زی‌پرشین} توسعه پیدا کرده است.
+    \end{center}
 
 \end{document}
