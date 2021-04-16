@@ -10,7 +10,7 @@ Each problem has its sepcific folder and by customizing `main.tex` you can creat
 Following package is required for loading problems into `main.tex`.
 
 ```sh
-tlmgr install subfiles import listing
+tlmgr install subfiles import listing todonotes
 ```
 
 - Persian Font: Vazir
