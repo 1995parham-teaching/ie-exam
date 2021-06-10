@@ -34,44 +34,39 @@
 \settextfont{Vazir}
 \setlatintextfont{Roboto}
 
+% for listing environments
 \colorlet{LightGray}{Gray!30!}
 
 \usepackage{subfiles}
+\usepackage{parhamExam}
 
-\title{آزمون پایان‌ترم‌\\مهندسی اینترنت}
+\title{مهندسی اینترنت}
 \author{پرهام الوانی}
-\date{نیم سال دوم ۱۳۹۹-۱۴۰۰\\زمان آزمون: ۱ ساعت و ۴۰ دقیقه}
-
-\newcommand\Extra{\textcolor{Orange}{امتیازی.}}
-\newenvironment{extra}{
-  \begin{quote}
-  \color{Orange}
-  \textbf{امتیازی.}
-}{
-  \end{quote}
-}
-\eqenvironment{امتیازی}{extra}
+\date{۲۰ خرداد ۱۴۰۰}
+\university{دانشگاه شهید بهشتی}
+\exam{آزمون پایانی}
+\semester{نیم سال دوم ۱۳۹۹-۱۴۰۰}
+\duration{۱۰۰}
 
 \begin{document}
+  \maketitle
+  \tableofcontents
+  \pagebreak
 
-    \maketitle
-    \tableofcontents
-    \pagebreak
-
-    \subfile{introduction/main}
-    \pagebreak
-    \subfile{http2/main}
-    \subfile{cookie-2/main}
-    \subfile{csrf/main}
-    \subfile{cgi/main}
-    \subfile{micro-service/main}
-    \subfile{aas/main}
-    \subfile{css-display/main}
-    \subfile{redirect/main}
-    \subfile{slice-vs-array/main}
-    \vspace*{\fill}
-    \begin{center}
+  \subfile{introduction/main}
+  \pagebreak
+  \subfile{http2/main}
+  \subfile{cookie-2/main}
+  \subfile{csrf/main}
+  \subfile{cgi/main}
+  \subfile{micro-service/main}
+  \subfile{aas/main}
+  \subfile{css-display/main}
+  \subfile{redirect/main}
+  \subfile{slice-vs-array/main}
+  \vspace*{\fill}
+  \begin{center}
 این سند برپایه بسته \متن‌لاتین{\زی‌پرشین} گونه \متن‌لاتین{\گونه‌زی‌پرشین} توسعه پیدا کرده است.
-    \end{center}
+  \end{center}
 
 \end{document}
