@@ -4,8 +4,55 @@
 
 \قسمت{فرق میان \متن‌لاتین{Slice} و \متن‌لاتین{Array}}
 
+\زیرقسمت{تغییر کردن یا نکردن، مساله این است!}
 \پاراگراف{}
-تفاوت میان \متن‌لاتین{Slice} و \متن‌لاتین{Array} در زبان \متن‌لاتین{Go} چیست؟
+کد زیر در نظر بگیرید، آیا \متن‌لاتین{arr} قبل و بعد از فراخوانی \متن‌لاتین{changeMe} تغییر کرده است؟ توضیح دهید.
+
+\begin{latin}
+\begin{minted}[bgcolor=LightGray]{go}
+package main
+
+import "fmt"
+
+func changeMe(arr [5]int) {
+        arr[0] = 10
+}
+
+func main() {
+        arr := [5]int{1, 2, 3, 4, 5}
+
+        fmt.Printf("arr: %+v\n", arr)
+        changeMe(arr)
+        fmt.Printf("arr: %+v\n", arr)
+}
+\end{minted}
+\end{latin}
+
+\زیرقسمت{بهینه‌سازی}
+\پاراگراف{}
+یکی از هم تیمی‌های شما کد زیر را به بهانه بهینه‌سازی نوشته است که هدف
+از آن پر کردن \متن‌لاتین{arr} از خانه ۰ تا ۹ با مقدارهای ۰ تا ۹ است.
+آیا این کد عملکرد صحیحی دارد؟ دلیل خود را توضیح دهید و در صورتی
+که مشکلی دارد آن را اصلاح کنید.
+
+\begin{latin}
+\begin{minted}[bgcolor=LightGray]{go}
+package main
+
+import "fmt"
+
+func main() {
+  arr := make([]int, 10)
+
+    for i := 0; i < 10; i++ {
+      arr = append(arr, i)
+    }
+
+    fmt.Printf("it must be 2: %d\n", arr[3])
+}
+
+\end{minted}
+\end{latin}
 
 \پاراگراف{}
 ۲ نمره
