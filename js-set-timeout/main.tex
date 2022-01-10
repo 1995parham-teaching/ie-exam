@@ -1,0 +1,29 @@
+\documentclass[../main.tex]{subfiles}
+
+\begin{document}
+
+\قسمت{تعیین مهلت}
+
+\پاراگراف{}
+سپهر کد زیر را نوشته است و برایش سوال ایجاد شده است که چرا با وجود استفاده از زمان صفر به عنوان مقدار \متن‌لاتین{Timeout}
+هنوز تابعی که به عنوان \متن‌لاتین{callback} داده شده است، در انتها اجرا میشود و در محلی که نوشته شده است فراخوانی نشده است. آیا می‌توانید به او کمک کنید و مساله را برایش توضیح دهید؟
+آیا این مساله تنها روی سیستم سپهر رخ می دهد؟
+
+\begin{latin}
+\begin{minted}[bgcolor=LightGray]{js}
+(function () {
+  let el = document.getElementById("sepehr-awesome-code");
+
+  setTimeout(function cb() {
+    el.innerHTML += "I am the callback<br />";
+  }); // has a default time value of 0
+
+  el.innerHTML += "I am after the callback! <br />";
+})();
+\end{minted}
+\end{latin}
+
+\paragraph{}
+۳ نمره
+
+\end{document}
