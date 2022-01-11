@@ -4,6 +4,7 @@
 \usepackage{import}
 \usepackage{listings}
 \usepackage{minted}
+\usepackage{tagging}
 \usepackage[dvipsnames]{xcolor}
 \usepackage{hyperref}
 \usepackage{graphicx}
@@ -20,17 +21,19 @@
 \settextfont{Vazir}
 \setlatintextfont{Roboto}
 
-% answer environment
-\newenvironment{پاسخ}
+% answer environment which is controlled by \usetag
+% only the begin{answer} and end{answer} should be used and there is no persian support.
+\usetag{answer}
+\newenvironment{answer}
 {
-\vspace{5mm}
-\begin{minipage}{\textwidth-4pt}
-\color{WildStrawberry}
-\rule{2cm}{0.5pt}\\
-\متن‌سیاه{پاسخ.}
+  \taggedblock{answer}
+  \vspace{5mm}
+  \color{WildStrawberry}
+  \rule{2cm}{0.5pt}\\
+  \متن‌سیاه{پاسخ.}\\
 }
 {
-\end{minipage}
+  \endtaggedblock
 }
 
 % for listing environments
