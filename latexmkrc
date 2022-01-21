@@ -5,4 +5,6 @@ $postscript_mode = $dvi_mode = 0;
 
 $warnings_as_errors = 1;
 
+$xelatex = "xelatex --shell-escape %O %S";
+
 @default_files = ('main.tex');
