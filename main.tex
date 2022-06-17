@@ -1,69 +1,26 @@
-\documentclass[]{article}
+\documentclass[]{exam}
 
-\usepackage{hyperref}
-\usepackage{import}
-\usepackage{listings}
-\usepackage{minted}
-\usepackage{tagging}
-\usepackage[dvipsnames]{xcolor}
-\usepackage{hyperref}
-\usepackage{graphicx}
-\usepackage{geometry}
- \geometry{
- a4paper,
- left=2.2cm,
- right=2.2cm,
- top=2.5cm,
- bottom=2.5cm
- }
+\عنوان{مهندسی اینترنت}
+\نویسنده{پرهام الوانی}
+\تاریخ{۳۰ خرداد ۱۴۰۱}
 
-\usepackage[localise]{xepersian}
-\settextfont{Vazirmatn}
-\setlatintextfont{Roboto}
-
-% answer environment which is controlled by \usetag
-% only the begin{answer} and end{answer} should be used and there is no persian support.
-\usetag{answer}
-\newenvironment{answer}
-{
-  \taggedblock{answer}
-  \vspace{5mm}
-  \color{WildStrawberry}
-  \rule{2cm}{0.5pt}\\
-  \متن‌سیاه{پاسخ.}\\
-}
-{
-  \endtaggedblock
+\جزئیات‌آزمون{
+  دانشگاه={دانشگاه صنعتی امیرکبیر},
+  نام={پایان‌ترم},
+  ترم={نیم سال دوم ۱۴۰۰-۱۴۰۱},
+  زمان={۱۲۰}
 }
 
-% for listing environments
-\colorlet{LightGray}{Gray!30!}
+\استفاده‌ازتگ{پاسخ}
 
-% for href
-\eqcommand{تارنما}{href}
+\شروع{نوشتار}
 
-\usepackage{subfiles}
-\usepackage{parhamExam}
+\عنوان‌ساز
+\فهرست‌مطالب
+\صفحه‌شکن
 
-\title{مهندسی اینترنت}
-\author{پرهام الوانی}
-\date{۱۱ اردیبهشت ۱۴۰۱}
-\university{دانشگاه صنعتی امیرکبیر}
-\exam{آزمون میانترم}
-\semester{نیم‌سال دوم ۱۴۰۰-۱۴۰۱}
-\duration{-}
+\ورودی{aas/main}
 
-\begin{document}
-  \maketitle
-  \tableofcontents
-  \pagebreak
+\پایان‌ساز
 
-  %\subfile{introduction/main}
-  %\vspace*{\fill}
-  %\pagebreak
-  \subfile{swapi/main}
-  \begin{center}
-این سند برپایه بسته \متن‌لاتین{\زی‌پرشین} گونه \متن‌لاتین{\گونه‌زی‌پرشین} توسعه پیدا کرده است.
-  \end{center}
-
-\end{document}
+\پایان{نوشتار}
