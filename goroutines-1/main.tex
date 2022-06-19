@@ -1,0 +1,54 @@
+\قسمت{پایان گو روتین‌ها}
+
+خروجی کد زیر چه خواهد بود؟ محتمل‌ترین گزینه را انتخاب کنید و آن را توضیح دهید.
+
+\begin{latin}
+\begin{minted}{go}
+package main
+
+import "fmt"
+
+func main() {
+    go func() {
+      fmt.Println("goroutine-2")
+    }()
+
+    fmt.Println("goroutine-1")
+}
+\end{minted}
+\end{latin}
+
+\شروع{شمارش}[ا)]
+
+\فقره برنامه تمام نمی‌شود.
+
+\فقره خروجی:
+
+\begin{latin}
+\begin{minted}{output}
+goroutine-2
+goroutine-1
+\end{minted}
+\end{latin}
+
+\فقره خروجی:
+
+\begin{latin}
+\begin{minted}{output}
+goroutine-1
+goroutine-2
+\end{minted}
+\end{latin}
+
+\فقره خروجی:
+
+\begin{latin}
+\begin{minted}{output}
+goroutine-1
+goroutine-2
+\end{minted}
+\end{latin}
+
+\پایان{شمارش}
+
+۱ نمره
