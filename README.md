@@ -2,7 +2,7 @@
 
 ## Introduction
 
-Questions for Internet Engineering Final/Midterm Exams. Each problem has its specific folder and by customizing `main.tex` you can create your exam.
+Questions for Internet Engineering Final/Midterm Exams. Each problem has its specific folder and by customizing `src/index.tex` you can create your exam.
 First exam was a quiz on Beheshti University Fall 2020 when everything was remote.
 
 
