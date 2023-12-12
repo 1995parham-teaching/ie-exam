@@ -8,7 +8,7 @@ First exam was a quiz on Beheshti University Fall 2020 when everything was remot
 
 ## Build
 
-Repository is structured based on [Tectonic](https://tectonic-typesetting.github.io/book/latest/index.html)!
+Repository is structured based on [Tectonic](https://tectonic-typesetting.github.io/book/latest/index.html)
 
 ```sh
 tectonic -X build
