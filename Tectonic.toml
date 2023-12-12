@@ -3,7 +3,7 @@ name = "ie-exam"
 bundle = "https://data1.fullyjustified.net/tlextras-2022.0r0.tar"
 
 [[output]]
-name = "default"
+name = "exam"
 type = "pdf"
 shell_escape = true
 preamble = ""
