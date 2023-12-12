@@ -11,11 +11,3 @@ On midterms, I always ask students to implement a very simple GUI for an API
 which is easy, fun and also a good way to measure students knowledge.
 
 - <https://github.com/public-apis/public-apis>
-
-## Requirements
-
-Following package is required for loading problems into `main.tex`.
-
-```bash
-tlmgr install tagging minted xepersian bdid
-```
