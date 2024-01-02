@@ -19,7 +19,8 @@ tectonic -X build
 On midterms, I always ask students to implement a very simple GUI (based on pure JS, CSS and HTML) for an API
 which is easy, fun and also a good way to measure students knowledge.
 
-- <https://github.com/public-apis/public-apis>
+- <https://github.com/marcelscruz/public-apis>
+- <https://publicapis.dev/>
 
 ## Midterms (Backend)
 
