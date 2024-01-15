@@ -1,5 +1,5 @@
 \ProvidesClass{exam}
-              [ie exam theme]
+              [IE exam Theme]
 
 \RequirePackage{minted}
 \RequirePackage[dvipsnames]{xcolor}
@@ -36,9 +36,9 @@
   \taggedblock{پاسخ}
   \vspace{5mm}
   {%
-  \color{WildStrawberry}
-  \rule{\linewidth}{0.5pt}\\
-  \متن‌سیاه{پاسخ.}\\
+    \color{WildStrawberry}
+    \rule{\linewidth}{0.5pt}\\
+    \textbf{پاسخ.}\\
   }
 }
 {%
