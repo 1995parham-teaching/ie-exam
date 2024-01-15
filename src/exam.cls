@@ -72,7 +72,7 @@
     \@semester\\
     \@date
 
-    \vspace{1.5cm}
+    \vspace{1cm}
 
     \textbf{\@author}
 
@@ -80,7 +80,7 @@
     زمان آزمون: \@duration\space دقیقه
     }
 
-    \vspace{0.8cm}
+    \vspace{0.5cm}
 
     \@university
   \end{center}
