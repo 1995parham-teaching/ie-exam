@@ -41,6 +41,9 @@
 \RequirePackage{minted}
 \RequirePackage[most]{tcolorbox}
 \RequirePackage{titlesec}
+% Figures stay where they are written. Without this LaTeX floats them to the
+% top of the page, so an image ends up above the question it illustrates.
+\RequirePackage{float}
 \RequirePackage{fancyhdr}
 \RequirePackage{lastpage}
 % Not array, and nothing that loads it (colortbl, booktabs with column types):
@@ -169,6 +172,7 @@
   xleftmargin=10pt,
 }
 \renewcommand{\listingscaption}{قطعه‌کد}
+\floatplacement{figure}{H}
 
 % -------------------------------------------------------------- callouts ---
 
@@ -211,10 +215,12 @@
   \nopagebreak
   {%
     \hfill
-    \setlength{\fboxsep}{5pt}%
-    \colorbox{tbaccentsoft}{%
-      \small\color{tbaccent}\textbf{\strut #1 نمره}%
-    }%
+    \tcbox[
+      on line, boxrule=0pt, arc=2.5pt,
+      colback=tbaccentsoft, coltext=tbaccent,
+      left=7pt, right=7pt, top=3pt, bottom=3pt,
+      boxsep=0pt,
+    ]{\small\bfseries #1 نمره}%
     \par
   }%
   \protected@write\@auxout{}{\string\tb@markentry{\thesection}{#1}}%
