@@ -294,3 +294,9 @@ TSWLatexianTemp*
 
 # End of https://www.toptal.com/developers/gitignore/api/latex
 */*.pdf
+
+## build outputs
+build/
+
+## minted writes its cache next to the sources
+src/_minted-*

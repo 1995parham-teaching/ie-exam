@@ -1,0 +1,51 @@
+name: build
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    # The same image the Makefile documents for local builds, so a green run
+    # means the exam also builds on the machine of whoever wrote the question.
+    container:
+      image: texlive/texlive:latest
+    steps:
+      - uses: actions/checkout@v7
+
+      # minted shells out to pygmentize for syntax highlighting.
+      - name: Install Pygments
+        run: |
+          if ! command -v pygmentize >/dev/null; then
+            apt-get update -qq && apt-get install -y --no-install-recommends python3-pygments
+          fi
+          pygmentize -V
+
+      # exams/all-questions.tex pulls in every question in src/, so this fails
+      # when any question stops compiling, not only the ones an exam uses.
+      - name: Build exams
+        run: make
+
+      - name: Build answer keys
+        run: make answers
+
+      - name: Upload PDFs
+        uses: actions/upload-artifact@v7
+        with:
+          name: exams
+          path: build/*.pdf
+          if-no-files-found: error
+
+      - name: Upload build logs
+        if: failure()
+        uses: actions/upload-artifact@v7
+        with:
+          name: build-logs
+          path: build/*.log
+          if-no-files-found: ignore
