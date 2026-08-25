@@ -1,7 +1,10 @@
 # Contributing
 
-This repository holds the question bank and the exam sheets for the **Internet
-Engineering** course. Read this before adding a question.
+This repository holds the question bank, the take-home projects, and the sheets
+that assemble them for the **Internet Engineering** course. The course is
+assessed with a **midterm, which is a take-home project** students have about a
+week for, and a **final, which is a real exam** sat in a room. Read this before
+adding either.
 
 ## Prerequisites
 
@@ -23,18 +26,22 @@ exists on your laptop breaks the build for everyone else.
 
 | Path | What it is |
 | --- | --- |
-| `src/<question>/main.tex` | one question, plus its answer and grading notes |
-| `exams/<exam>.tex` | one exam: metadata and the list of questions |
+| `src/questions/<name>/main.tex` | one exam question, plus its answer and grading notes |
+| `src/projects/<name>/main.tex` | one take-home project |
+| `exams/<name>.tex` | a final: metadata and the list of questions |
+| `midterms/<name>.tex` | a midterm: metadata, the deadline, and its project |
 | `exams/all-questions.tex` | every question, built by CI as a compile check |
 | `ie-exam.cls` | the shared class |
 | `fonts/` | Vazirmatn (Persian) and Roboto (Latin) |
 
-`latexmk` runs from `src/`, which is why an exam includes a question as
-`\ورودی{<question>/main}` and images resolve as `<question>/<image>.png`.
+`latexmk` runs from `src/`, which is why a final includes a question as
+`\ورودی{questions/<name>/main}`. Images are found through `\graphicspath`, so
+`\درج‌تصویر{<name>/<image>.png}` keeps working whether the folder sits under
+`questions/` or `projects/`.
 
 ## Adding a question
 
-1. Create `src/<question>/main.tex`. Name the folder after the topic in
+1. Create `src/questions/<name>/main.tex`. Name the folder after the topic in
    kebab-case (`host-header`, `slice-vs-array`) — not after the exam it first
    appeared in, because questions get reused.
 
@@ -53,7 +60,7 @@ exists on your laptop breaks the build for everyone else.
    \end{پاسخ}
    ```
 
-3. Add it to `exams/all-questions.tex`, and to the exam that uses it.
+3. Add it to `exams/all-questions.tex`, and to the final that uses it.
 
 4. Build and check both outputs:
 
@@ -89,9 +96,31 @@ exists on your laptop breaks the build for everyone else.
   `genderize`), say what a student should do when it is unreachable during the
   exam — those services have gone down before.
 
-## Exams
+## Adding a take-home project
 
-An exam is a thin file: metadata plus the list of questions.
+A project is a whole midterm on its own, so it gets a folder under
+`src/projects/` and a sheet under `midterms/`. Write the project the same way as
+a question — a fragment starting with `\قسمت` — and keep its images and their
+editable `.drawio` sources next to it.
+
+The sheet carries the deadline rather than an exam duration:
+
+```latex
+\جزئیات‌آزمون{
+دانشگاه={دانشگاه صنعتی امیرکبیر},
+نام={میان‌ترم (پروژه فرانت‌اند)},
+مهلت={یک هفته}
+}
+```
+
+A project runs for a week, unsupervised, so it needs things an exam question
+does not: what to hand in and how, what counts as out of scope, and what a
+student should do if an external service it depends on is down or rate-limited.
+Put the extra credit in an `امتیازی` environment, as `shopping-basket` does.
+
+## Finals
+
+A final is a thin file: metadata plus the list of questions.
 
 ```latex
 \documentclass[]{ie-exam}
@@ -112,14 +141,15 @@ An exam is a thin file: metadata plus the list of questions.
 \فهرست‌مطالب
 \صفحه‌شکن
 
-\ورودی{validation/main}
+\ورودی{questions/validation/main}
 
 \پایان‌ساز
 \end{document}
 ```
 
-Name it `<year>-<semester>-<kind>.tex`, e.g. `1402-2-final.tex`. Do not delete
-old exams — they are the record of what was asked, and questions are reused.
+Name a final `<year>-<semester>-final.tex`, e.g. `1402-2-final.tex`. Midterm
+sheets are named after their project, since a project is reused across
+semesters. Do not delete old sheets — they are the record of what was asked.
 
 ## What does not belong here
 

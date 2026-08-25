@@ -6,6 +6,10 @@
 \RequirePackage{minted}
 \RequirePackage[dvipsnames]{xcolor}
 \RequirePackage{graphicx}
+% Questions and projects refer to their images by a path relative to src/, so
+% both subdirectories are searched and a question can move between them
+% without rewriting every \درج‌تصویر.
+\graphicspath{{questions/}{projects/}{./}}
 \RequirePackage{enumerate}
 \RequirePackage{keyval}
 
@@ -85,8 +89,19 @@
 \define@key{exam}{دانشگاه}[]{\gdef\@university{#1}}
 \define@key{exam}{ترم}[]{\gdef\@semester{#1}}
 \define@key{exam}{زمان}[]{\gdef\@duration{#1}}
+\define@key{exam}{مهلت}[]{\gdef\@deadline{#1}}
 \define@key{exam}{نام}[]{\gdef\@exam{#1}}
 \def\examdetails#1{{\setkeys{exam}{#1}}}
+
+% A midterm does not set every field a final does, so the cover page prints a
+% line only when its value exists and is not empty.
+\newcommand{\ie@line}[1]{%
+  \expandafter\ifx\csname #1\endcsname\relax\else
+    \expandafter\ifx\csname #1\endcsname\@empty\else
+      \csname #1\endcsname\\
+    \fi
+  \fi
+}
 
 % xepersian installs its own \maketitle for the document class after this
 % class is read, so the cover page is defined once every package is loaded.
@@ -99,8 +114,8 @@
 
       \vspace{0.5cm}
       \Large
-      \@exam\\
-      \@semester\\
+      \ie@line{@exam}
+      \ie@line{@semester}
       \@date
 
       \vspace{1cm}
@@ -109,6 +124,10 @@
 
       \@ifundefined{@duration}{}{%
       زمان آزمون: \@duration\space دقیقه
+      }
+
+      \@ifundefined{@deadline}{}{%
+      مهلت تحویل: \@deadline
       }
 
       \vspace{0.5cm}
