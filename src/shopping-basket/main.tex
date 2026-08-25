@@ -15,8 +15,8 @@
     \item \verb|GET /basket/| (returns a list of baskets)
     \item \verb|POST /basket/| (creates a new basket)
     \item \verb|PATCH /basket/<id>| (updates the given basket)
-    \item \verb|GET /basket/<id>| (reutrns the given basket)
-    \item \verb|DELETE /basket/<id>| (deletes the given backset)
+    \item \verb|GET /basket/<id>| (returns the given basket)
+    \item \verb|DELETE /basket/<id>| (deletes the given basket)
   \end{itemize}
 \end{latin}
 
@@ -34,7 +34,7 @@
     \item \verb|created_at| (the time in which basket is created)
     \item \verb|updated_at| (the time in which basket got updated)
     \item \verb|data| (variable length data with maximum size of 2048 bytes)
-    \item \verb|state| (which shoule COMPLETED or PENDING)
+    \item \verb|state| (which should be COMPLETED or PENDING)
   \end{itemize}
 \end{latin}
 
@@ -42,7 +42,7 @@
 
 تیم فرانت می‌تواند یک سبد ایجاد کرده و \متن‌لاتین{id} آن را دریافت کند.
 در ادامه با استفاده از \متن‌لاتین{id} می‌تواند آن را به روزرسانی کند.
-در نظر داشته باشیم وضعیت سبد در زمان از سمت تیم فرانت مشخص می‌شود و در به روزرسانی‌ها تغییر می‌کند اما با رسیدن سبد به وضعیت \متن‌لاتین{COMPLETED} دیگر امکان تغییر آن وجود ندارد.
+در نظر داشته باشیم وضعیت سبد در هر زمان از سمت تیم فرانت مشخص می‌شود و در به روزرسانی‌ها تغییر می‌کند اما با رسیدن سبد به وضعیت \متن‌لاتین{COMPLETED} دیگر امکان تغییر آن وجود ندارد.
 به بیان دیگر، لحظه‌ای که تیم فرانت وضعیت سبد را به \متن‌لاتین{COMPLETED} می‌رساند، دیگر امکان تغییر در آن سبد وجود ندارد و باید خطای مناسب نمایش داده شود.
 
 برای پیاده‌سازی دیتابیس می‌توانید مثل آنچه در کلاس انجام دادیم، از \متن‌لاتین{SQLite} استفاده کنید.
@@ -62,7 +62,7 @@
 \زیرقسمت{امتیازی}
 
 در نظر داشته باشید هر دو مورد امتیازی بزرگ هستند و نمره زیادی خواهند داشت اما چون از مباحث کلاس خارج هستند به صورت امتیازی در آمده‌اند.
-حتی انجام یکی از آن‌ها میتواند کمک شایانی به سایر نمرات شما در این در داشته باشد.
+حتی انجام یکی از آن‌ها میتواند کمک شایانی به سایر نمرات شما در این درس داشته باشد.
 
 \زیرزیرقسمت{اضافه کردن کاربر}
 
