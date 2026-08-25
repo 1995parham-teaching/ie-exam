@@ -98,15 +98,15 @@
     \begin{center}
       \vspace*{0.5cm}
 
-      {\color{tbaccentline}\rule{0.35\linewidth}{1pt}}
+      \textcolor{tbaccentline}{\rule{0.35\linewidth}{1pt}}
 
       \vspace{0.6cm}
 
-      {\Huge\bfseries\color{tbaccent}\@title}
+      {\Huge\bfseries\textcolor{tbaccent}{\@title}}
 
       \vspace{0.35cm}
 
-      {\color{tbaccentline}\rule{0.35\linewidth}{1pt}}
+      \textcolor{tbaccentline}{\rule{0.35\linewidth}{1pt}}
 
       \vspace{0.8cm}
 
@@ -122,15 +122,15 @@
 
       \vspace{0.2cm}
 
-      {\color{tbmuted}\@university}
+      \textcolor{tbmuted}{\@university}
 
       \vspace{0.6cm}
 
       \@ifundefined{@duration}{}{%
-        \colorbox{tbaccentsoft}{\color{tbaccent}\textbf{زمان آزمون: \@duration\space دقیقه}}%
+        \colorbox{tbaccentsoft}{\textcolor{tbaccent}{\textbf{\strut زمان آزمون: \@duration\space دقیقه}}}%
       }
       \@ifundefined{@deadline}{}{%
-        \colorbox{tbaccentsoft}{\color{tbaccent}\textbf{مهلت تحویل: \@deadline}}%
+        \colorbox{tbaccentsoft}{\textcolor{tbaccent}{\textbf{\strut مهلت تحویل: \@deadline}}}%
       }
 
       \vspace{1cm}
