@@ -116,8 +116,8 @@
 \titleformat{\section}
   {\normalfont\Large\bfseries\color{tbaccent}}
   {\thesection}{0.6em}{}
-  [{\vspace{-0.4\baselineskip}\color{tbaccentline}\titlerule[0.8pt]}]
-\titlespacing*{\section}{0pt}{1.6\baselineskip}{0.7\baselineskip}
+  [{\vspace{0.35\baselineskip}\color{tbaccentline}\titlerule[0.8pt]}]
+\titlespacing*{\section}{0pt}{1.8\baselineskip}{0.9\baselineskip}
 
 \titleformat{\subsection}
   {\normalfont\large\bfseries\color{tbink}}
@@ -211,8 +211,9 @@
   \nopagebreak
   {%
     \hfill
+    \setlength{\fboxsep}{5pt}%
     \colorbox{tbaccentsoft}{%
-      \small\color{tbaccent}\textbf{#1 نمره}%
+      \small\color{tbaccent}\textbf{\strut #1 نمره}%
     }%
     \par
   }%
