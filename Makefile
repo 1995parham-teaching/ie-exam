@@ -11,9 +11,10 @@
 # latexmk runs from src/, because an exam refers to the class as ../exam and
 # includes its questions by their path inside src/.
 
-# TEXINPUTS puts the repository root ahead of the TeX tree, so ie-exam.cls and
-# fonts/ resolve while latexmk runs from src/.
-TEXINPUTS_ROOT := ..:
+# TEXINPUTS puts the repository root and the shared latex/ subtree ahead of the
+# TeX tree, so ie-exam.cls and teaching-base.sty resolve while latexmk runs
+# from src/.
+TEXINPUTS_ROOT := ..:../latex:
 
 LATEXMK ?= latexmk
 LATEXMKFLAGS ?= -xelatex -shell-escape -halt-on-error -interaction=nonstopmode
@@ -23,7 +24,7 @@ MIDTERMS := $(patsubst midterms/%.tex,%,$(wildcard midterms/*.tex))
 SHEETS := $(EXAMS) $(MIDTERMS)
 QUESTIONS := $(wildcard src/questions/*/main.tex)
 PROJECTS := $(wildcard src/projects/*/main.tex)
-DEPS := ie-exam.cls $(QUESTIONS) $(PROJECTS) $(wildcard fonts/*.ttf)
+DEPS := ie-exam.cls $(wildcard latex/*.sty) $(QUESTIONS) $(PROJECTS) $(wildcard latex/fonts/*.ttf)
 
 .PHONY: all
 all: $(patsubst %,build/%.pdf,$(SHEETS))

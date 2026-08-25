@@ -18,7 +18,7 @@ Or use the image CI uses, with nothing installed locally:
 docker run --rm -v "$PWD":/work -w /work texlive/texlive:latest make
 ```
 
-Fonts are vendored in `fonts/` and picked up automatically — do not install them
+Fonts are vendored in `latex/fonts/` and picked up automatically — do not install them
 system-wide, and do not switch the class to a system font: a font that only
 exists on your laptop breaks the build for everyone else.
 
@@ -32,7 +32,8 @@ exists on your laptop breaks the build for everyone else.
 | `midterms/<name>.tex` | a midterm: metadata, the deadline, and its project |
 | `exams/all-questions.tex` | every question, built by CI as a compile check |
 | `ie-exam.cls` | the shared class |
-| `fonts/` | Vazirmatn (Persian) and Roboto (Latin) |
+| `latex/` | the shared class base, from [latex-templates](https://github.com/1995parham-teaching/latex-templates) (git subtree) |
+| `latex/fonts/` | Vazirmatn (Persian) and Roboto (Latin) |
 
 `latexmk` runs from `src/`, which is why a final includes a question as
 `\ورودی{questions/<name>/main}`. Images are found through `\graphicspath`, so

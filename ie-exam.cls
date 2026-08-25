@@ -1,90 +1,40 @@
 % Named ie-exam rather than exam: TeX Live ships its own exam.cls, and a
 % document that asks for `exam` can silently get that one instead.
 \ProvidesClass{ie-exam}
-              [IE exam Theme]
+              [2026/08/25 Internet Engineering exams and midterms]
 
-\RequirePackage{minted}
-\RequirePackage[dvipsnames]{xcolor}
-\RequirePackage{graphicx}
+\LoadClass[]{article}
+
+\RequirePackage[
+  a4paper,
+  left=2.2cm,
+  right=2.2cm,
+  top=2.7cm,
+  bottom=2.5cm,
+  headsep=0.7cm
+]{geometry}
+
+% Everything that is not the cover page of an exam lives in teaching-base:
+% the palette, the fonts, the sectioning, the listings, the callout boxes,
+% the marks and the answer blocks.
+\RequirePackage[latin=Roboto]{teaching-base}
+
 % Questions and projects refer to their images by a path relative to src/, so
 % both subdirectories are searched and a question can move between them
 % without rewriting every \درج‌تصویر.
 \graphicspath{{questions/}{projects/}{./}}
-\RequirePackage{enumerate}
-\RequirePackage{keyval}
 
-% Questions use LightGray as a minted background; it is not one of the
-% dvipsnames, so define it here rather than pulling in another colour set.
-\definecolor{LightGray}{gray}{0.92}
+\date{\persiantoday}
 
-\LoadClass[]{article}
-
-\RequirePackage{hyperref}
-\RequirePackage[
- a4paper,
- left=2.2cm,
- right=2.2cm,
- top=2.5cm,
- bottom=2.5cm
-]{geometry}
-
-% The Persian command aliases (\قسمت, \فقره, \متن‌لاتین, ...) come from this
-% option. It was spelled [localise] before TeX Live 2023 and is [localize] now.
-\RequirePackage[localize]{xepersian}
-
-\newcommand\Extra{\textcolor{Orange}{امتیازی.}}
-\newenvironment{extra}{
-  \begin{quote}
-  \color{Orange}
-  \textbf{امتیازی.}
-}{
-  \end{quote}
-}
-\eqenvironment{امتیازی}{extra}
-
-% Answers are hidden unless the document is built with `make answers`, which
-% defines \showanswers before the class is loaded.
+% ------------------------------------------------------------- metadata ---
 %
-% The hidden case typesets the answer into a box that is thrown away, rather
-% than skipping the source text. Skipping needs the terminator to be found
-% textually, which cannot work here: the questions close the block with the
-% localised \پایان{پاسخ}, and the scanner would be looking for \end{answer}.
-\newif\ifie@answers
-\@ifundefined{showanswers}{\ie@answersfalse}{\ie@answerstrue}
-\newsavebox{\ie@answerbox}
-
-\newenvironment{answer}
-{%
-  \ifie@answers
-    \vspace{5mm}
-    {%
-      \color{WildStrawberry}
-      \rule{\linewidth}{0.5pt}\\
-      \textbf{پاسخ.}\\
-    }%
-  \else
-    \setbox\ie@answerbox\vbox\bgroup
-  \fi
-}
-{%
-  \ifie@answers\else\egroup\fi
-}
-\eqenvironment{پاسخ}{answer}
-
-
-\setlength{\parindent}{0pt}
-\renewcommand{\baselinestretch}{1.5}
-
-% \mark is a TeX primitive, hence the longer name.
-\newcommand{\questionmark}[1]{{\hfill\textcolor{Gray}{\textbf{#1 نمره}}\par}}
-\eqcommand{نمره}{questionmark}
-
-\newcommand{\examdate}{\@date}
-\eqcommand{تاریخ‌آزمون}{examdate}
-
-\eqcommand{جزئیات‌آزمون}{examdetails}
-\eqcommand{پایان‌ساز}{makefooter}
-\eqcommand{تارنما}{href}
+%   \جزئیات‌آزمون{
+%     دانشگاه={دانشگاه صنعتی امیرکبیر},
+%     نام={آزمون پایانی},
+%     ترم={نیم‌سال دوم ۱۴۰۲-۱۴۰۳},
+%     زمان={۹۰}          % a final: minutes in the room
+%     مهلت={یک هفته}     % a midterm: how long they have at home
+%   }
 
 \define@key{exam}{دانشگاه}[]{\gdef\@university{#1}}
 \define@key{exam}{ترم}[]{\gdef\@semester{#1}}
@@ -92,6 +42,10 @@
 \define@key{exam}{مهلت}[]{\gdef\@deadline{#1}}
 \define@key{exam}{نام}[]{\gdef\@exam{#1}}
 \def\examdetails#1{{\setkeys{exam}{#1}}}
+\eqcommand{جزئیات‌آزمون}{examdetails}
+
+\newcommand{\examdate}{\@date}
+\eqcommand{تاریخ‌آزمون}{examdate}
 
 % A midterm does not set every field a final does, so the cover page prints a
 % line only when its value exists and is not empty.
@@ -103,64 +57,95 @@
   \fi
 }
 
+% -------------------------------------------------------- grading table ---
+%
+% Every \نمره{۲} writes its question number and weight into the .aux file.
+% They are collected here and printed on the cover as the table to mark in,
+% which means the table appears from the second run onwards — latexmk does
+% that run on its own.
+
+\newcommand{\ie@marks}{}
+\newcommand{\ie@markrow}[2]{#1 & #2 & \\ \hline}
+\renewcommand{\tb@markentry}[2]{%
+  \g@addto@macro\ie@marks{\ie@markrow{#1}{#2}}%
+}
+
+\newcommand{\gradingtable}{%
+  \ifx\ie@marks\@empty\else
+    \begin{center}
+      \small
+      \begin{tabular}{|c|c|p{2.4cm}|}
+        \hline
+        \textbf{\ \ سوال\ \ } & \textbf{\ \ بارم\ \ } & \textbf{نمره} \\
+        \hline
+        \ie@marks
+      \end{tabular}
+    \end{center}
+  \fi
+}
+\eqcommand{جدول‌نمرات}{gradingtable}
+
+% ------------------------------------------------------------- the cover ---
+%
 % xepersian installs its own \maketitle for the document class after this
 % class is read, so the cover page is defined once every package is loaded.
+
 \AtBeginDocument{%
+  \runninghead{\@title}%
+  \@ifundefined{@exam}{}{\runningfoot{\@exam}}%
   \renewcommand{\maketitle}{%
+    \thispagestyle{plain}
     \begin{center}
-      \vspace*{1cm}
+      \vspace*{0.5cm}
 
-      \Huge\textbf{\@title}
+      {\color{tbaccentline}\rule{0.35\linewidth}{1pt}}
 
-      \vspace{0.5cm}
-      \Large
-      \ie@line{@exam}
-      \ie@line{@semester}
-      \@date
+      \vspace{0.6cm}
+
+      {\Huge\bfseries\color{tbaccent}\@title}
+
+      \vspace{0.35cm}
+
+      {\color{tbaccentline}\rule{0.35\linewidth}{1pt}}
+
+      \vspace{0.8cm}
+
+      {\Large
+        \ie@line{@exam}
+        \ie@line{@semester}
+        \@date
+      }
+
+      \vspace{0.8cm}
+
+      {\large\bfseries\@author}
+
+      \vspace{0.2cm}
+
+      {\color{tbmuted}\@university}
+
+      \vspace{0.6cm}
+
+      \@ifundefined{@duration}{}{%
+        \colorbox{tbaccentsoft}{\color{tbaccent}\textbf{زمان آزمون: \@duration\space دقیقه}}%
+      }
+      \@ifundefined{@deadline}{}{%
+        \colorbox{tbaccentsoft}{\color{tbaccent}\textbf{مهلت تحویل: \@deadline}}%
+      }
 
       \vspace{1cm}
 
-      \textbf{\@author}
+      \begin{minipage}{0.8\linewidth}
+        \small
+        نام و نام خانوادگی: \hrulefill\hspace{0.6cm} شماره دانشجویی: \hrulefill
+      \end{minipage}
 
-      \@ifundefined{@duration}{}{%
-      زمان آزمون: \@duration\space دقیقه
-      }
+      \vspace{0.9cm}
 
-      \@ifundefined{@deadline}{}{%
-      مهلت تحویل: \@deadline
-      }
-
-      \vspace{0.5cm}
-
-      \@university
+      \gradingtable
     \end{center}
-  }
+    \newpage
+  }%
 }
 
-\newcommand{\makefooter}{%
-  \vfill
-  \begin{flushleft}
-    موفق و موید باشید
-  \end{flushleft}
-  \begin{center}
-    این سند برپایه بسته \متن‌لاتین{\زی‌پرشین} گونه \متن‌لاتین{\گونه‌زی‌پرشین} توسعه پیدا کرده است.
-    نگارش شده به تاریخ \@date
-  \end{center}
-}
-
-% Vazirmatn has no italic, so its slanted shape is synthesised.
-\settextfont[
-  Path = ../fonts/,
-  Extension = .ttf,
-  UprightFont = *-Regular,
-  BoldFont = *-Bold,
-  AutoFakeSlant = 0.15
-]{Vazirmatn}
-
-\setlatintextfont[
-  Path = ../fonts/,
-  Extension = .ttf,
-  UprightFont = *-Regular,
-  BoldFont = *-Bold,
-  ItalicFont = *-Italic
-]{Roboto}
+\endinput
