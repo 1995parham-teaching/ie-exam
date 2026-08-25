@@ -44,6 +44,7 @@
 % Figures stay where they are written. Without this LaTeX floats them to the
 % top of the page, so an image ends up above the question it illustrates.
 \RequirePackage{float}
+\RequirePackage{needspace}
 \RequirePackage{fancyhdr}
 \RequirePackage{lastpage}
 % Not array, and nothing that loads it (colortbl, booktabs with column types):
@@ -119,8 +120,15 @@
 \titleformat{\section}
   {\normalfont\Large\bfseries\color{tbaccent}}
   {\thesection}{0.6em}{}
-  [{\vspace{0.35\baselineskip}\color{tbaccentline}\titlerule[0.8pt]}]
+  [{\nobreak\vspace{0.35\baselineskip}\nobreak
+    \textcolor{tbaccentline}{\titlerule[0.8pt]}\nobreak}]
 \titlespacing*{\section}{0pt}{1.8\baselineskip}{0.9\baselineskip}
+
+% A question heading, its rule and the first lines under it stay on one page:
+% without this a heading can sit at the foot of a page with its rule, or its
+% rule, on the next one.
+\newcommand{\sectionbreak}{\needspace{5\baselineskip}}
+\newcommand{\subsectionbreak}{\needspace{4\baselineskip}}
 
 \titleformat{\subsection}
   {\normalfont\large\bfseries\color{tbink}}
