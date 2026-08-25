@@ -1,0 +1,279 @@
+% teaching-base — the shared look of Parham Alvani's course documents.
+%
+% This package carries everything that is not specific to one kind of document:
+% the palette, the fonts, the sectioning, the code listings, the callout boxes,
+% the marks, and the answer blocks. A class on top of it (ie-assignment,
+% ie-exam, ...) adds only its own cover page and metadata.
+%
+% Usage from a class:
+%
+%   \LoadClass[]{article}
+%   \RequirePackage[latin=Neuton]{teaching-base}
+%
+% Options:
+%
+%   latin     the Latin text font family in fonts/     (default Neuton)
+%   persian   the Persian text font family in fonts/   (default Vazirmatn)
+%   fontpath  where those families live, relative to the build directory
+%                                                      (default ../latex/fonts/)
+%   accent    the accent colour, as a six digit hex    (default 2457C5)
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{teaching-base}[2026/08/25 v1.0 shared base for course documents]
+
+\RequirePackage{kvoptions}
+\SetupKeyvalOptions{family=tb, prefix=tb@}
+\DeclareStringOption[Neuton]{latin}
+\DeclareStringOption[Vazirmatn]{persian}
+\DeclareStringOption[../latex/fonts/]{fontpath}
+\DeclareStringOption[2457C5]{accent}
+\ProcessKeyvalOptions*
+
+% --------------------------------------------------------------- packages ---
+%
+% xepersian wants to be loaded after everything it patches, so it comes last,
+% and the fonts are set after that.
+
+\RequirePackage[dvipsnames]{xcolor}
+\RequirePackage{graphicx}
+\RequirePackage{enumerate}
+\RequirePackage{keyval}
+\RequirePackage{minted}
+\RequirePackage[most]{tcolorbox}
+\RequirePackage{titlesec}
+\RequirePackage{fancyhdr}
+\RequirePackage{lastpage}
+% Not array, and nothing that loads it (colortbl, booktabs with column types):
+% under TeX Live 2026 bidi patches \@tabular in a way that then calls array's
+% \UseMathForPositioningText, and every tabular in the document dies. Plain
+% tabular is fine.
+
+% ---------------------------------------------------------------- palette ---
+%
+% One accent, one muted grey, and a tinted pair per callout. Every colour in a
+% document should come from here: a document that picks its own colours is how
+% the previous version ended up with Orange, WildStrawberry and a black code
+% background in the same page.
+
+\definecolor{tbaccent}{HTML}{\tb@accent}
+\colorlet{tbaccentsoft}{tbaccent!8}
+\colorlet{tbaccentline}{tbaccent!25}
+\definecolor{tbmuted}{HTML}{6B7280}
+\definecolor{tbink}{HTML}{1F2933}
+
+\definecolor{tbnote}{HTML}{0F766E}
+\colorlet{tbnotesoft}{tbnote!7}
+\definecolor{tbbonus}{HTML}{C2410C}
+\colorlet{tbbonussoft}{tbbonus!7}
+\definecolor{tbanswer}{HTML}{A21CAF}
+\colorlet{tbanswersoft}{tbanswer!6}
+
+% Some questions still ask minted for these two by name.
+\definecolor{LightGray}{gray}{0.92}
+\definecolor{Black}{gray}{0}
+
+% Loaded here, after the palette: with colorlinks set at load time there are no
+% red border boxes around references, and the link colours are ours.
+\RequirePackage[
+  colorlinks=true,
+  linkcolor=tbink,
+  urlcolor=tbaccent,
+  citecolor=tbaccent,
+  pdflang={fa-IR},
+]{hyperref}
+
+% ------------------------------------------------------------- typography ---
+
+\setlength{\parindent}{0pt}
+\linespread{1.25}
+\setlength{\parskip}{0.6\baselineskip plus 2pt minus 1pt}
+
+% --------------------------------------------------------------- xepersian ---
+
+\RequirePackage[localize]{xepersian}
+
+\settextfont[
+  Path = \tb@fontpath,
+  Extension = .ttf,
+  UprightFont = *-Regular,
+  BoldFont = *-Bold,
+  AutoFakeSlant = 0.15
+]{\tb@persian}
+
+\setlatintextfont[
+  Path = \tb@fontpath,
+  Extension = .ttf,
+  UprightFont = *-Regular,
+  BoldFont = *-Bold,
+  ItalicFont = *-Italic
+]{\tb@latin}
+
+% ------------------------------------------------------------- sectioning ---
+%
+% A question should be visible when a student flips through the paper, so the
+% heading carries the accent and a hairline underneath.
+
+\titleformat{\section}
+  {\normalfont\Large\bfseries\color{tbaccent}}
+  {\thesection}{0.6em}{}
+  [{\vspace{-0.4\baselineskip}\color{tbaccentline}\titlerule[0.8pt]}]
+\titlespacing*{\section}{0pt}{1.6\baselineskip}{0.7\baselineskip}
+
+\titleformat{\subsection}
+  {\normalfont\large\bfseries\color{tbink}}
+  {\thesubsection}{0.5em}{}
+\titlespacing*{\subsection}{0pt}{1.1\baselineskip}{0.4\baselineskip}
+
+\titleformat{\subsubsection}
+  {\normalfont\normalsize\bfseries\color{tbmuted}}
+  {\thesubsubsection}{0.5em}{}
+
+% -------------------------------------------------------- header & footer ---
+%
+% Pages of a printed exam get separated; each one says what it belongs to.
+
+\newcommand{\tb@runninghead}{}
+\newcommand{\tb@runningfoot}{}
+\newcommand{\runninghead}[1]{\renewcommand{\tb@runninghead}{#1}}
+\newcommand{\runningfoot}[1]{\renewcommand{\tb@runningfoot}{#1}}
+
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0pt}
+\newcommand{\tb@small}[1]{{\small\color{tbmuted}#1}}
+\fancyhead[R]{\tb@small{\tb@runninghead}}
+\fancyhead[L]{\tb@small{\tb@runningfoot}}
+\fancyfoot[C]{\tb@small{صفحه \thepage\ از \pageref{LastPage}}}
+\fancypagestyle{plain}{%
+  \fancyhf{}%
+  \renewcommand{\headrulewidth}{0pt}%
+  \fancyfoot[C]{\tb@small{صفحه \thepage\ از \pageref{LastPage}}}%
+}
+
+% ------------------------------------------------------------------ code ---
+%
+% No dark background: these are printed, and often photocopied. A left rule in
+% the accent colour marks a listing without costing toner, and it lets a long
+% listing break across pages, which a background colour does not.
+
+\setminted{
+  style=friendly,
+  fontsize=\small,
+  breaklines=true,
+  breakanywhere=true,
+  frame=leftline,
+  framesep=8pt,
+  framerule=1.5pt,
+  rulecolor=\color{tbaccentline},
+  xleftmargin=10pt,
+}
+\renewcommand{\listingscaption}{قطعه‌کد}
+
+% -------------------------------------------------------------- callouts ---
+
+\tcbset{
+  tbcallout/.style={
+    enhanced, breakable, boxrule=0pt, arc=2pt, left=8pt, right=8pt,
+    top=6pt, bottom=6pt, borderline west={2.5pt}{0pt}{#1},
+    colback=#1!7, coltitle=#1, fonttitle=\bfseries,
+  },
+}
+
+\newtcolorbox{tb@note}{tbcallout=tbnote, title=نکته}
+\newtcolorbox{tb@hint}{tbcallout=tbaccent, title=راهنمایی}
+\newtcolorbox{tb@bonus}{tbcallout=tbbonus, title=امتیازی}
+
+\newenvironment{note}{\begin{tb@note}}{\end{tb@note}}
+\newenvironment{hint}{\begin{tb@hint}}{\end{tb@hint}}
+\newenvironment{extra}{\begin{tb@bonus}}{\end{tb@bonus}}
+
+\eqenvironment{نکته}{note}
+\eqenvironment{راهنمایی}{hint}
+\eqenvironment{امتیازی}{extra}
+
+% kept for questions that write \Extra inline rather than opening a block
+\newcommand\Extra{\textcolor{tbbonus}{\textbf{امتیازی.}}}
+
+% ----------------------------------------------------------------- marks ---
+%
+% The weight of a question is set as \نمره{۲}. It is rendered as a badge, and
+% recorded in the .aux file so that a cover page can print a grading table on
+% the next run.
+%
+% Write a fractional weight with the Arabic decimal separator, ۱٫۵ — an ASCII
+% dot is a neutral character, so «۱.۵» comes out of the RTL run reading «۵.۱».
+
+\newcommand{\tb@markentry}[2]{}
+\newcommand{\marksrecorded}[1]{\renewcommand{\tb@markentry}{#1}}
+
+\newcommand{\questionmark}[1]{%
+  \nopagebreak
+  {%
+    \hfill
+    \colorbox{tbaccentsoft}{%
+      \small\color{tbaccent}\textbf{#1 نمره}%
+    }%
+    \par
+  }%
+  \protected@write\@auxout{}{\string\tb@markentry{\thesection}{#1}}%
+}
+\eqcommand{نمره}{questionmark}
+
+% --------------------------------------------------------------- answers ---
+%
+% Answers and grading notes live next to their question and are hidden unless
+% \showanswers is defined before the class is loaded (`make answers`).
+%
+% The hidden case typesets the answer into a box that is thrown away rather
+% than skipping the source text: skipping needs the terminator to be found
+% textually, and the questions close the block with the localised
+% \پایان{پاسخ}, not with \end{answer}.
+
+\newif\iftb@answers
+\@ifundefined{showanswers}{\tb@answersfalse}{\tb@answerstrue}
+\newsavebox{\tb@answerbox}
+
+\newtcolorbox{tb@answerbox@shown}{tbcallout=tbanswer, title=پاسخ و نکات تصحیح}
+
+\newenvironment{answer}
+{%
+  \iftb@answers
+    \begin{tb@answerbox@shown}%
+  \else
+    \setbox\tb@answerbox\vbox\bgroup
+  \fi
+}
+{%
+  \iftb@answers
+    \end{tb@answerbox@shown}%
+  \else
+    \egroup
+  \fi
+}
+\eqenvironment{پاسخ}{answer}
+
+% ---------------------------------------------------------------- footer ---
+
+\newcommand{\makefooter}{%
+  \vfill
+  \begin{center}
+    \tb@small{%
+      این سند برپایه بسته \متن‌لاتین{\زی‌پرشین} گونه \متن‌لاتین{\گونه‌زی‌پرشین}
+      توسعه پیدا کرده است. نگارش شده به تاریخ \@date
+    }
+  \end{center}
+}
+\eqcommand{پایان‌ساز}{makefooter}
+\eqcommand{تارنما}{href}
+
+% ------------------------------------------------------------- pdf output ---
+
+\AtBeginDocument{%
+  \hypersetup{
+    pdftitle={\@title},
+    pdfauthor={\@author},
+  }%
+}
+
+\endinput
