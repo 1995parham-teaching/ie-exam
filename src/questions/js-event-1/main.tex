@@ -20,3 +20,26 @@ function setBgColor(color) {
 \end{latin}
 
 \نمره{۳}
+
+% پاسخ پیشنهادی است و پیش از استفاده در تصحیح نیاز به بازبینی دارد.
+\begin{پاسخ}
+
+بله ممکن است. چون هندلر باید با پارامتر مشخصی فراخوانی شود، تابع را در یک تابع دیگر می‌پیچیم:
+
+\begin{latin}
+\begin{minted}[]{js}
+document
+  .getElementById('change-my-color')
+  .addEventListener('click', function () {
+    setBgColor('orange');
+  });
+\end{minted}
+\end{latin}
+
+\شروع{فقرات}
+\فقره نوشتن \متن‌لاتین{addEventListener('click', setBgColor('orange'))}: نادرست است، چون تابع همان‌جا فراخوانی می‌شود و مقدار بازگشتی‌اش به عنوان هندلر ثبت می‌شود
+\فقره استفاده از \متن‌لاتین{onclick} در جاوا اسکریپت هم پذیرفته است
+\فقره تغییر \متن‌لاتین{HTML}: بدون نمره، چون در صورت سوال منع شده است
+\پایان{فقرات}
+
+\end{پاسخ}
